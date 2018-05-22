@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Modal, Header, Icon } from 'semantic-ui-react';
+import logo from './logo.svg';
 import './App.css';
 
 import { findFrequencies } from './PizzaProcessor';
+import { Pizzas } from './Pizzas';
 
 class App extends Component {
-  state = { 
+  state = {
     pizzas: undefined,
     err: undefined,
   };
@@ -13,9 +16,9 @@ class App extends Component {
     fetch('http://files.olo.com/pizzas.json')
       .then(request => request.json())
       .then((data) => {
-        console.log('is setSTate defined?', this.setState);
         this.setState({
-          pizzas: findFrequencies(data),
+          // Only take the top 20, which we do here because it's display logic
+          pizzas: findFrequencies(data).slice(0, 20),
         });
       })
       .catch((fetchError) => {
@@ -26,22 +29,42 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.err) {
+      return (
+        <Modal open>
+          <Modal.Header>Error</Modal.Header>
+          <Modal.Content>
+            {this.state.err.message}
+          </Modal.Content>
+        </Modal>
+      );
+    }
     if (this.state.pizzas) {
       return (
         <div>
-          { !this.state.err ? <Pizzas pizzas={this.state.pizzas} /> : <div>{this.state.err.message}</div>}
+          <Header as='h2' icon textAlign='center'>
+            <Icon name='food' circular />
+            <Header.Content>
+              20 Most Popular Combos
+              </Header.Content>
+          </Header>
+          <hr />
+          <Pizzas pizzas={this.state.pizzas} />
         </div>
       );
     }
 
     return (
-      <div>Loading</div>
+      <div className="App">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="App-title">Loading order data...</h1>
+        <p className="App-intro">
+          Please hold.
+      </p>
+      </div>
     );
   }
 }
 
-const Pizzas = props => (
-  props.pizzas.map((pizza, idx) => (<div key={idx}>Rank: {idx} {pizza.toppings} : {pizza.orderCount}</div>))
-);
 
 export default App;

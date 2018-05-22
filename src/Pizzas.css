@@ -1,0 +1,7 @@
+.card-group {
+  border-radius: 15px;
+  border: 1px solid grey;
+  padding: 1rem;
+  padding-top: 2rem;
+  margin: 2rem;
+}
