@@ -1,5 +1,5 @@
 import { makeKey, findFrequencies } from '../PizzaProcessor';
-import pizzaData from '../pizzas.json';
+import pizzaData from './pizzas.json';
 
 const keyA = ['extra sauce', 'shrimp', 'olives'];
 const keyB = ['shrimp', 'extra sauce', 'olives'];

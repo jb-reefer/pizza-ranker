@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import { findFrequencies } from './PizzaProcessor';
-import { Pizzas } from './Pizzas';
+import { Pizzas } from './components/Pizzas';
 
 class App extends Component {
   state = {
