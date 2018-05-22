@@ -5,7 +5,9 @@ import './Pizzas.css';
 const Pizzas = props => (
   <div className="card-group">
     <Card.Group centered stackable>
-      {props.pizzas.map((pizza, idx) => <PizzaCard key={idx} rank={idx} pizza={pizza} />) }
+      {
+        props.pizzas.map((pizza, idx) => <PizzaCard key={pizza.toppings} rank={idx} pizza={pizza} />)
+      }
     </Card.Group>
   </div>
 );
